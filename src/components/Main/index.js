@@ -38,7 +38,7 @@ class Main extends Component {
         const { data } = this.state;
         return (
             <Fragment>
-                <button className="ml-4 py-1 px-2 font-semibold rounded-md text-sm text-center bg-indigo-500 w-24" onClick={() => this.fetchJokes()}>Refresh</button>
+                <button className="ml-4 sm:ml-40 my-1 text-white py-1.5 px-2 font-semibold rounded-md text-sm text-center bg-indigo-500 w-24" onClick={() => this.fetchJokes()}>Refresh</button>
                 <div className="flex flex-col mb-3 sm:flex-row sm:flex-wrap sm:justify-center w-full mx-auto">
                     {this.mapJokes(data)}
                 </div>

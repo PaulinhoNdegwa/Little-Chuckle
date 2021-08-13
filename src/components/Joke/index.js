@@ -1,5 +1,5 @@
 const Joke = props => {
-    const { joke, selectedIndex, index} = props;
+    const { joke, selectedIndex, index } = props;
 
     const mapFlags = flags => {
         const keys = Object.keys(flags);
@@ -11,11 +11,20 @@ const Joke = props => {
 
         })
     }
-    console.log(Object.keys(joke.flags).length)
     return (
-        <div className={` ${selectedIndex === index ? `bg-indigo-100 border-gray-400 transform transition hover:-rotate-6` : `` }py-4 px-3 m-2 sm:m-1 sm:w-64 md:w-80 border-2 border-gray-200 rounded-sm py-2 px-4 hover:bg-gray-100 hover:border-gray-400`}>
-            <p className="my-2 font-mono antialiased font-bold">{joke.joke}</p>
-            <p className="my-2 font-semibold text-indigo-500">Category: {joke.category}</p>
+        <div className={` ${selectedIndex === index ? `bg-indigo-100 border-gray-400 transform transition hover:-rotate-6` : ``}py-4 px-3 m-2 sm:m-1 sm:w-64 md:w-80 border-2 border-gray-200 rounded-sm py-2 px-4 hover:bg-gray-100 hover:border-gray-400`}>
+            {
+                joke.type === "twopart" ? (
+                    <div>
+                        <p className="my-2 font-mono antialiased font-bold">{joke.setup}</p>
+                        <p className="my-2 font-mono antialiased font-bold mt-7">{joke.delivery}</p>
+
+                    </div>
+                ) : (
+                    <p className="my-2 font-mono antialiased font-bold">{joke.joke}</p>
+                )
+            }
+            <p className="my-2 font-semibold text-indigo-500">Category: {joke.category}           {joke.type === "twopart" ? "- Two-Part" : null}</p>
             {
                 (Object.keys(joke.flags).length) > 0 ? (
                     <p className="my-2 font-medium text-gray-500">Flags: {mapFlags(joke.flags)}</p>

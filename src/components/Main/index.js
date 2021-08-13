@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react';
 import FilterJokes from '../FilterForm';
-import { twoPartData } from '../../assets/mockData/data';
+// import { twoPartData } from '../../assets/mockData/data';
 import Joke from '../Joke';
 import Loader from '../Loader';
 
@@ -11,9 +11,8 @@ class Main extends Component {
         error: false,
         errorMessage: "Error fetching some jokes. Try again later",
         data: [],
-        selectedIndex: Math.floor(Math.random() * 10),
         hideFilters: true,
-        searchWord: "your mom",
+        searchWord: "",
         categories: [],
         flags: []
     }
@@ -51,8 +50,8 @@ class Main extends Component {
 
 
     fetchJokes = () => {
-        this.setState({ loading: true });
-        const { categories, flags } = this.state;
+        this.setState({ loading: true, error: false, errorMessage: "" });
+        const { categories, flags, searchWord } = this.state;
         const categoryString = categories.join()
 
         const flagString = flags.join()
@@ -67,13 +66,17 @@ class Main extends Component {
         if(flagString){
             url = `${url}?blacklistFlags=${flagString}`
         }
+        if(searchWord){
+            url = `${url}${flagString !=="" ? "&" : "?"}contains=${searchWord}`
+        }
 
-        url = `${url}${ flagString ? `&` : `?`}amount=10`
-        console.log(url)
+        url = `${url}${ (flagString !=="" || searchWord !== "")? `&` : `?`}amount=10`
         // return;
 
         axios.get(url)
             .then(response => {
+                if(response.data.error === true) this.setState({ error: true, errorMessage: response.data.causedBy[0] });
+
                 this.setState({ data: response.data.jokes, loading: false, hideFilters: true });
 
             })
@@ -84,9 +87,8 @@ class Main extends Component {
     }
 
     mapJokes = jokes => {
-        const { selectedIndex } = this.state;
         return jokes.map((joke, index) => {
-            return <Joke key={joke.id} joke={joke} selectedIndex={selectedIndex} index={index} />
+            return <Joke key={index} joke={joke} />
         });
     }
 

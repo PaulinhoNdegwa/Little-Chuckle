@@ -1,5 +1,5 @@
 const Joke = props => {
-    const { joke, selectedIndex, index } = props;
+    const { joke } = props;
 
     const mapFlags = flags => {
         const keys = Object.keys(flags);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { FaSearch } from 'react-icons/fa';
 class FilterJokes extends Component {
     render() {
         const { handleCategoryCheckbox, handleFlagsCheckbox, handleSearchWordChange, fetchJokes, searchWord, hideFilters } = this.props;
@@ -31,7 +31,7 @@ class FilterJokes extends Component {
         }
 
         return (
-            <form autoComplete="off" className={`${hideFilters ? `hidden` : ``} flex flex-col px-2 bg-gray-200 py-3 my-2 max-w-7xl mx-1 sm:mx-auto sm:flex-row sm:flex-wrap sm:justify-evenly`}>
+            <form autoComplete="off" className={`${hideFilters ? `hidden` : ``} flex flex-col px-2 bg-gray-100 py-3 my-2 max-w-7xl mx-1 sm:mx-auto sm:flex-row sm:flex-wrap sm:justify-evenly`}>
                 <div className="my-1">
                     <label className="ml-1 mt-1 text-sm font-normal" htmlFor="word">Enter Search Words</label>
                     <input autoComplete="off" onChange={handleSearchWordChange} value={searchWord} className="block h-8 w-full sm:w-full md:w-2/3 lg:w-60 py-1 border-b-1 border-gray-500 text-sm rounded-lg focus:border-lg focus:border-indigo-500" type="text" name="word" id="word" placeholder="Search for a joke" />
@@ -53,7 +53,9 @@ class FilterJokes extends Component {
                         className="bg-indigo-500 py-1.5 w-full sm:w-40 sm:h-9 sm:mt-5 sm:px-4 text-white font-semibold rounded-md hover:bg-indigo-700"
                         onClick={fetchJokes}
                         type="button"
-                    >Search</button>
+                    >Search
+                    <FaSearch className="inline text-sm ml-1 white font-bold" />
+                    </button>
                 </div>
             </form>
         );
